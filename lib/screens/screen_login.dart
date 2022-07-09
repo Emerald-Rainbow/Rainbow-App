@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:rainbow/screens/screen_home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:rainbow/screens/screen_register.dart';
 
-class ScreenLogin extends StatelessWidget {
+class ScreenLogin extends StatefulWidget {
+  @override
+  State<ScreenLogin> createState() => _ScreenLoginState();
+}
+
+class _ScreenLoginState extends State<ScreenLogin> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final _emailController = TextEditingController();
+
+  final _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +32,7 @@ class ScreenLogin extends StatelessWidget {
             ),
             SizedBox(height: 25),
             TextFormField(
+              controller: _emailController,
               decoration: InputDecoration(
                 hintText: 'Email',
                 border: OutlineInputBorder(),
@@ -28,6 +42,7 @@ class ScreenLogin extends StatelessWidget {
             SizedBox(height: 20),
             TextFormField(
               obscureText: true,
+              controller: _passwordController,
               decoration: InputDecoration(
                 hintText: 'Password',
                 border: OutlineInputBorder(),
@@ -36,7 +51,10 @@ class ScreenLogin extends StatelessWidget {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                signIn(
+                    _emailController.text, _passwordController.text, context);
+              },
               child: Text('Login'),
             ),
             TextButton(
@@ -56,5 +74,40 @@ class ScreenLogin extends StatelessWidget {
       context,
       MaterialPageRoute(builder: (context) => ScreenRegister()),
     );
+  }
+
+  signIn(String email, String password, context) async {
+    try {
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ScreenHome()),
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            duration: Duration(seconds: 3),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.all(10),
+            content: Text('No User found for that Email.'),
+          ),
+        );
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            duration: Duration(seconds: 3),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.all(10),
+            content: Text('Incorrect Credentials.'),
+          ),
+        );
+      }
+    }
   }
 }

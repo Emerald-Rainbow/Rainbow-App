@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "911580734101",
+    "project_id": "rainbow-temp",
+    "storage_bucket": "rainbow-temp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911580734101:android:3f6b90fce3905e52c8319c",
+        "android_client_info": {
+          "package_name": "com.emerald.rainbow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "911580734101-idgef5vgcuk43ajks9jjqm8akli34t0f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.emerald.rainbow",
+            "certificate_hash": "7e71e14c34c1c60f53157be6127c0e6b922a3471"
+          }
+        },
+        {
+          "client_id": "911580734101-u3pb9c24sjfsp6dmbuvomr63rdgs1jtl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClEkVZDet_WYuZGjkhDJLZzWdwC0_EoF4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "911580734101-u3pb9c24sjfsp6dmbuvomr63rdgs1jtl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

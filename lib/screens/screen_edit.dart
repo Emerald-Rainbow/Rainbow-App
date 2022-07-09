@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rainbow/screens/screen_home.dart';
-import 'package:rainbow/screens/screen_login.dart';
 
-class ScreenRegister extends StatelessWidget {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+class ScreenEdit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +11,7 @@ class ScreenRegister extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  'Register',
+                  'Edit Profile',
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
@@ -27,25 +23,6 @@ class ScreenRegister extends StatelessWidget {
                     hintText: 'Name',
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.email),
-                  ),
-                ),
-                SizedBox(height: 20),
-                TextFormField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    hintText: 'Email',
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.email),
-                  ),
-                ),
-                SizedBox(height: 20),
-                TextFormField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: 'Password',
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.password),
                   ),
                 ),
                 SizedBox(height: 20),
@@ -67,14 +44,8 @@ class ScreenRegister extends StatelessWidget {
                 SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {},
-                  child: Text('Register'),
+                  child: Text('Edit Profile'),
                 ),
-                TextButton(
-                  onPressed: () {
-                    goToLoginPage(context);
-                  },
-                  child: Text('Already a User? Login'),
-                )
               ],
             ),
           ),

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:rainbow/screens/screen_edit.dart';
+import 'package:rainbow/screens/screen_home.dart';
 import 'package:rainbow/screens/screen_login.dart';
 import 'package:rainbow/screens/screen_register.dart';
 import 'package:rainbow/screens/screen_splash.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -16,7 +22,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: ScreenLogin(),
+      home: ScreenSplash(),
     );
   }
 }
