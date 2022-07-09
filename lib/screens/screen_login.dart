@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:rainbow/main.dart';
 import 'package:rainbow/screens/screen_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:rainbow/screens/screen_register.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ScreenLogin extends StatefulWidget {
   @override
@@ -80,6 +82,8 @@ class _ScreenLoginState extends State<ScreenLogin> {
     try {
       final credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+      final _sharedPreference = await SharedPreferences.getInstance();
+      await _sharedPreference.setBool(SAVE_KEY_NAME, true);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => ScreenHome()),

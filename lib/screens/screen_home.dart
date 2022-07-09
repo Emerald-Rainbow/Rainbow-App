@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rainbow/screens/screen_add.dart';
 import 'package:rainbow/screens/screen_consult.dart';
@@ -84,7 +85,9 @@ class _ScreenHomeState extends State<ScreenHome> {
     );
   }
 
-  signout(context) {
+  signout(context) async {
+    await FirebaseAuth.instance.signOut();
+
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => ScreenLogin()),
         (route) => false);

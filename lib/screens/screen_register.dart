@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:rainbow/screens/screen_home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:rainbow/screens/screen_login.dart';
 
-class ScreenRegister extends StatelessWidget {
+class ScreenRegister extends StatefulWidget {
+  @override
+  State<ScreenRegister> createState() => _ScreenRegisterState();
+}
+
+class _ScreenRegisterState extends State<ScreenRegister> {
   final _emailController = TextEditingController();
+  final FirebaseAuth auth = FirebaseAuth.instance;
   final _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +35,7 @@ class ScreenRegister extends StatelessWidget {
                   decoration: InputDecoration(
                     hintText: 'Name',
                     border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.email),
+                    prefixIcon: Icon(Icons.person),
                   ),
                 ),
                 SizedBox(height: 20),
@@ -66,7 +75,10 @@ class ScreenRegister extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    onRegister(_emailController.text, _passwordController.text,
+                        context);
+                  },
                   child: Text('Register'),
                 ),
                 TextButton(
@@ -85,5 +97,42 @@ class ScreenRegister extends StatelessWidget {
 
   goToLoginPage(context) {
     Navigator.pop(context);
+  }
+
+  onRegister(String email, String password, context) async {
+    try {
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            duration: Duration(seconds: 3),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.all(10),
+            content: Text('The Password provided is too weak.'),
+          ),
+        );
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            duration: Duration(seconds: 3),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.all(10),
+            content: Text('Account already exists for that email.'),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 }
