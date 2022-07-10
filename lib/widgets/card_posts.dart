@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class CardsPost extends StatefulWidget {
   @override
@@ -21,14 +22,19 @@ class _CardsPostState extends State<CardsPost> {
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("loading");
+          return Text("Loading");
         }
         return SingleChildScrollView(
           child: Column(
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               Map<String, dynamic> data =
                   document.data()! as Map<String, dynamic>;
+              var htmlData = {data['content']};
               return Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                semanticContainer: true,
                 clipBehavior: Clip.antiAlias,
                 elevation: 10,
                 child: Column(
@@ -58,20 +64,17 @@ class _CardsPostState extends State<CardsPost> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(
-                          left: 20, right: 20, bottom: 20),
-                      child: Text(
-                        '${data['content']}',
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            color: Colors.black.withOpacity(0.6), fontSize: 15),
+                      padding:
+                          const EdgeInsets.only(left: 20, right: 20, bottom: 7),
+                      child: Container(
+                        height: 200,
+                        child: Html(
+                          data: '${data['content']}',
+                        ),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(7),
-                      child: Image.asset(
-                        'assets/images/img1.jpg',
-                      ),
                     ),
                     ButtonBar(
                       alignment: MainAxisAlignment.start,
