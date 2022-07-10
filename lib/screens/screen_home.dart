@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rainbow/screens/screen_add.dart';
 import 'package:rainbow/screens/screen_consult.dart';
 import 'package:rainbow/screens/screen_login.dart';
 import 'package:rainbow/screens/screen_main.dart';
 import 'package:rainbow/screens/screen_profile.dart';
 import 'package:rainbow/screens/screen_rooms.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ScreenHome extends StatefulWidget {
   @override
@@ -65,7 +67,7 @@ class _ScreenHomeState extends State<ScreenHome> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.health_and_safety),
-              label: 'Consultaion',
+              label: 'Consultation',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.hotel),
@@ -87,7 +89,9 @@ class _ScreenHomeState extends State<ScreenHome> {
 
   signout(context) async {
     await FirebaseAuth.instance.signOut();
-
+    await GoogleSignIn().signOut();
+    final _sharedPreference = await SharedPreferences.getInstance();
+    await _sharedPreference.clear();
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => ScreenLogin()),
         (route) => false);

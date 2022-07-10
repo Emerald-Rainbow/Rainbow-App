@@ -30,24 +30,30 @@ class _CardsPostState extends State<CardsPost> {
                   document.data()! as Map<String, dynamic>;
               return Card(
                 clipBehavior: Clip.antiAlias,
-                elevation: 8,
+                elevation: 10,
                 child: Column(
                   children: [
                     ListTile(
                       leading: CircleAvatar(
                         backgroundImage: NetworkImage('${data['authorPic']}'),
                       ),
-                      title: Text(
-                        '${data['title']}',
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
+                      title: Padding(
+                        padding: EdgeInsets.only(top: 7, bottom: 7),
+                        child: Text(
+                          '${data['title']}',
+                          overflow: TextOverflow.fade,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
                       ),
-                      subtitle: Text(
-                        '${data['author']}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black.withOpacity(0.6),
+                      subtitle: Padding(
+                        padding: EdgeInsets.only(bottom: 7),
+                        child: Text(
+                          '${data['author']}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black.withOpacity(0.6),
+                          ),
                         ),
                       ),
                     ),

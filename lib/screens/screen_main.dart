@@ -13,8 +13,12 @@ class _ScreenMainState extends State<ScreenMain> {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(top: 5, left: 15, right: 15),
-        child: Expanded(
-          child: CardsPost(),
+        child: Column(
+          children: [
+            Expanded(
+              child: CardsPost(),
+            ),
+          ],
         ),
       ),
     );

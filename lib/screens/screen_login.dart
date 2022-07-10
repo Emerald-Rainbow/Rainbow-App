@@ -3,6 +3,7 @@ import 'package:rainbow/main.dart';
 import 'package:rainbow/screens/screen_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rainbow/screens/screen_register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -59,6 +60,13 @@ class _ScreenLoginState extends State<ScreenLogin> {
               },
               child: Text('Login'),
             ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                signInWithGoogle(context);
+              },
+              child: Text('Login with Google'),
+            ),
             TextButton(
               onPressed: () {
                 goToRegisterPage(context);
@@ -113,5 +121,28 @@ class _ScreenLoginState extends State<ScreenLogin> {
         );
       }
     }
+  }
+
+  Future<void> signInWithGoogle(context) async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+    // Once signed in, return the UserCredential
+    final _sharedPreference = await SharedPreferences.getInstance();
+    await _sharedPreference.setBool(SAVE_KEY_NAME, true);
+
+    await FirebaseAuth.instance.signInWithCredential(credential);
+    print(credential);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ScreenHome()));
   }
 }
