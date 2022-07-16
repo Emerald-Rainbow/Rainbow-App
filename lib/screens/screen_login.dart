@@ -136,12 +136,12 @@ class _ScreenLoginState extends State<ScreenLogin> {
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
+    await FirebaseAuth.instance.signInWithCredential(credential);
+    print(credential);
     // Once signed in, return the UserCredential
     final _sharedPreference = await SharedPreferences.getInstance();
     await _sharedPreference.setBool(SAVE_KEY_NAME, true);
 
-    await FirebaseAuth.instance.signInWithCredential(credential);
-    print(credential);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => ScreenHome()));
   }

@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rainbow/screens/screen_edit.dart';
-import 'package:rainbow/screens/screen_home.dart';
-import 'package:rainbow/screens/screen_login.dart';
-import 'package:rainbow/screens/screen_register.dart';
 import 'package:rainbow/screens/screen_splash.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 const SAVE_KEY_NAME = "UserLoggedIn";
