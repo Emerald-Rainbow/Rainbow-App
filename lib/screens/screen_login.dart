@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rainbow/main.dart';
 import 'package:rainbow/screens/screen_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rainbow/screens/screen_register.dart';
 import 'package:shared_preferences/shared_preferences.dart';

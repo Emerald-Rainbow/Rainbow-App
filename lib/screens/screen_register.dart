@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rainbow/screens/screen_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:rainbow/screens/screen_login.dart';
 
 class ScreenRegister extends StatefulWidget {
   @override

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rainbow/widgets/card_posts.dart';
 
 class ScreenMain extends StatefulWidget {
   @override
@@ -12,14 +11,8 @@ class _ScreenMainState extends State<ScreenMain> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.only(top: 5, left: 15, right: 15),
-        child: Column(
-          children: [
-            Expanded(
-              child: CardsPost(),
-            ),
-          ],
-        ),
+        padding: EdgeInsets.all(20),
+        child: Text('Main Page'),
       ),
     );
   }
