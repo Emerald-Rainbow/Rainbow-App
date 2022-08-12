@@ -35,24 +35,15 @@ class _ScreenHomeState extends State<ScreenHome> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          leading: Image.asset(
-            'assets/images/logo.jpg',
-            width: 200,
-            height: 200,
-          ),
-          automaticallyImplyLeading: false,
+          backgroundColor: Colors.transparent,
+          toolbarHeight: 80,
+          elevation: 0,
           title: Center(
-            child: Text(
-              'RAINBOW',
+            child: Image.asset(
+              'assets/images/logo.jpg',
+              width: 200,
             ),
           ),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  signout(context);
-                },
-                icon: Icon(Icons.exit_to_app)),
-          ],
         ),
         body: _pages[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
@@ -85,15 +76,5 @@ class _ScreenHomeState extends State<ScreenHome> {
         ),
       ),
     );
-  }
-
-  signout(context) async {
-    await FirebaseAuth.instance.signOut();
-    await GoogleSignIn().signOut();
-    final _sharedPreference = await SharedPreferences.getInstance();
-    await _sharedPreference.clear();
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => ScreenLogin()),
-        (route) => false);
   }
 }

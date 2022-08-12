@@ -3,6 +3,7 @@ import 'package:rainbow/screens/screen_splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 const SAVE_KEY_NAME = "UserLoggedIn";
+var json;
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      debugShowCheckedModeBanner: false,
       home: ScreenSplash(),
     );
   }

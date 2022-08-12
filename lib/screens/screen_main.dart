@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart' hide Text;
+import 'package:rainbow/main.dart';
 
-class ScreenMain extends StatefulWidget {
-  @override
-  State<ScreenMain> createState() => _ScreenMainState();
-}
-
-class _ScreenMainState extends State<ScreenMain> {
-  bool pressAttention = false;
+class ScreenMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
