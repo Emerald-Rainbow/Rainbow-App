@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_quill/flutter_quill.dart' hide Text;
-import 'package:rainbow/main.dart';
+import 'package:rainbow/widgets/card_posts.dart';
 
-class ScreenMain extends StatelessWidget {
+class ScreenMain extends StatefulWidget {
+  @override
+  State<ScreenMain> createState() => _ScreenMainState();
+}
+
+class _ScreenMainState extends State<ScreenMain> {
+  bool pressAttention = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(20),
-        child: Text('Main Page'),
+        padding: EdgeInsets.only(top: 5, left: 15, right: 15),
+        child: Column(
+          children: [
+            Expanded(
+              child: CardsPost(),
+            ),
+          ],
+        ),
       ),
     );
   }

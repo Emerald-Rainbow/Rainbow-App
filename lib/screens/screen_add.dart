@@ -42,7 +42,7 @@ class ScreenAdd extends StatelessWidget {
   }
 }
 
-void addPost(QuillController controller) {
-  json = jsonEncode(controller.document.toDelta().toJson());
+void addPost(QuillController _controller) {
+  var json = jsonEncode(_controller.document.toDelta().toJson());
   print(json);
 }
