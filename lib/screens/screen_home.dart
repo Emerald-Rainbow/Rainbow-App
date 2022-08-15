@@ -35,14 +35,13 @@ class _ScreenHomeState extends State<ScreenHome> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           backgroundColor: Colors.transparent,
           toolbarHeight: 80,
           elevation: 0,
-          title: Center(
-            child: Image.asset(
-              'assets/images/logo.jpg',
-              width: 200,
-            ),
+          title: Image.asset(
+            'assets/images/logo.jpg',
+            width: 200,
           ),
         ),
         body: _pages[_selectedIndex],

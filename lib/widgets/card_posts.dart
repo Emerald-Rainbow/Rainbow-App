@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:rainbow/screens/screen_post.dart';
 
 class CardsPost extends StatefulWidget {
   @override
@@ -29,7 +30,6 @@ class _CardsPostState extends State<CardsPost> {
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               Map<String, dynamic> data =
                   document.data()! as Map<String, dynamic>;
-              var htmlData = {data['content']};
               return Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
@@ -40,6 +40,10 @@ class _CardsPostState extends State<CardsPost> {
                 child: Column(
                   children: [
                     ListTile(
+                      onTap: () {
+                        gotoPostPage(context, data['title'], data['author'],
+                            data['content']);
+                      },
                       leading: CircleAvatar(
                         backgroundImage: NetworkImage('${data['authorPic']}'),
                       ),
@@ -63,18 +67,34 @@ class _CardsPostState extends State<CardsPost> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 20, right: 20, bottom: 7),
-                      child: Container(
-                        height: 200,
-                        child: Html(
-                          data: '${data['content']}',
+                    InkWell(
+                      onTap: () => gotoPostPage(context, data['title'],
+                          data['author'], data['content']),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, bottom: 7),
+                        child: InkWell(
+                          onTap: () => gotoPostPage(context, data['title'],
+                              data['author'], data['content']),
+                          child: Container(
+                            height: 200,
+                            child: InkWell(
+                              onTap: () => gotoPostPage(context, data['title'],
+                                  data['author'], data['content']),
+                              child: Html(
+                                data: '${data['content']}',
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.all(7),
+                    InkWell(
+                      onTap: () => gotoPostPage(context, data['title'],
+                          data['author'], data['content']),
+                      child: Padding(
+                        padding: EdgeInsets.all(7),
+                      ),
                     ),
                     ButtonBar(
                       alignment: MainAxisAlignment.start,
@@ -103,4 +123,10 @@ class _CardsPostState extends State<CardsPost> {
       },
     );
   }
+}
+
+void gotoPostPage(context, title, author, content) {
+  getdata(title, author, content);
+  Navigator.push(
+      context, MaterialPageRoute(builder: (context) => ScreenPost()));
 }
