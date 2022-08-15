@@ -50,7 +50,19 @@ class ScreenAdd extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   var data = quillDeltaToHtml(_controller);
-                  addPost(context, _titleController.text, data);
+                  if (_titleController.text.isNotEmpty) {
+                    addPost(context, _titleController.text, data);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        duration: Duration(seconds: 3),
+                        backgroundColor: Colors.red,
+                        behavior: SnackBarBehavior.floating,
+                        margin: EdgeInsets.all(10),
+                        content: Text('Title must be entered..'),
+                      ),
+                    );
+                  }
                 },
                 child: Text("Add Post"),
               )
@@ -72,13 +84,7 @@ Future<void> addPost(context, title, content) {
   var userId = user!.uid;
   var likes = 0;
   var createdAt = DateTime.now().toString();
-  print(title2);
-  print(content2);
-  print(author);
-  print(authorPic);
-  print(userId);
-  print(likes);
-  print(createdAt);
+
   return blogs
       .add({
         'title': title2,
