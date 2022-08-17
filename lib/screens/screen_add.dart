@@ -54,6 +54,7 @@ class ScreenAdd extends StatelessWidget {
                   showCenterAlignment: false,
                   showColorButton: false,
                   showInlineCode: false,
+                  showVideoButton: false,
                 ),
               ),
               SizedBox(height: 20),
