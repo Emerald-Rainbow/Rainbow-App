@@ -33,7 +33,30 @@ class ScreenAdd extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              QuillToolbar.basic(controller: _controller),
+              Container(
+                decoration:
+                    BoxDecoration(border: Border.all(color: Colors.black)),
+                child: QuillToolbar.basic(
+                  controller: _controller,
+                  showFontFamily: false,
+                  showFontSize: false,
+                  showListCheck: false,
+                  showClearFormat: false,
+                  showCodeBlock: false,
+                  showBackgroundColorButton: false,
+                  showDirection: false,
+                  showIndent: false,
+                  showAlignmentButtons: false,
+                  showLeftAlignment: false,
+                  showRightAlignment: false,
+                  showUnderLineButton: false,
+                  showStrikeThrough: false,
+                  showCenterAlignment: false,
+                  showColorButton: false,
+                  showInlineCode: false,
+                ),
+              ),
+              SizedBox(height: 20),
               Expanded(
                 child: Container(
                   decoration:
@@ -100,5 +123,5 @@ Future<void> addPost(context, title, content) {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => ScreenHome()))
           })
-      .catchError((error) => print("Failed to add user: $error"));
+      .catchError((error) => print("Failed to add blog.. $error"));
 }

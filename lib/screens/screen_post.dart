@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:rainbow/screens/screen_home.dart';
-import 'package:rainbow/widgets/card_posts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ScreenPost extends StatelessWidget {
   @override
@@ -41,6 +40,13 @@ class ScreenPost extends StatelessWidget {
                   ),
                   Html(
                     data: content1,
+                    onLinkTap: (url, _, __, ___) async {
+                      if (await canLaunch(url!)) {
+                        await launch(
+                          url,
+                        );
+                      }
+                    },
                   ),
                 ],
               ),
@@ -55,9 +61,6 @@ void getdata(title, author, content) {
   title1 = title;
   author1 = author;
   content1 = content;
-  print(title1);
-  print(author1);
-  print(content1);
 }
 
 void gotoMainPage(context) {
