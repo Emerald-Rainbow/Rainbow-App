@@ -37,6 +37,7 @@ dependencies:
   flutter_html: ^3.0.0-alpha.5
   flutter_quill: ^5.4.1
   google_sign_in: ^5.4.0
+  jiffy: ^5.0.0
   markdown: ^6.0.0
   shared_preferences: ^2.0.15
   url_launcher: ^6.1.5

@@ -10,9 +10,10 @@ class CardsPost extends StatefulWidget {
 
 class _CardsPostState extends State<CardsPost> {
   bool pressAttention = false;
-  final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('blogs').snapshots();
-
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
+      .collection("blogs")
+      .orderBy("createdAt", descending: true)
+      .snapshots();
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -77,7 +78,7 @@ class _CardsPostState extends State<CardsPost> {
                           onTap: () => gotoPostPage(context, data['title'],
                               data['author'], data['content']),
                           child: Container(
-                            height: 200,
+                            height: checkheight(data['content']),
                             child: InkWell(
                               onTap: () => gotoPostPage(context, data['title'],
                                   data['author'], data['content']),
@@ -129,4 +130,8 @@ void gotoPostPage(context, title, author, content) {
   getdata(title, author, content);
   Navigator.push(
       context, MaterialPageRoute(builder: (context) => ScreenPost()));
+}
+
+double? checkheight(String content) {
+  if (content.length >= 500) return 180.0;
 }
