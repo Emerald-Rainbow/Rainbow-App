@@ -6,6 +6,8 @@ import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:delta_markdown/delta_markdown.dart';
 import 'package:markdown/markdown.dart' hide Text;
 import 'package:rainbow/screens/screen_home.dart';
+import 'package:jiffy/jiffy.dart';
+import 'package:intl/intl.dart';
 
 String quillDeltaToHtml(QuillController delta) {
   final convertedValue = jsonEncode(delta.document.toDelta().toJson());
@@ -98,6 +100,11 @@ class ScreenAdd extends StatelessWidget {
   }
 }
 
+DateTime currentTime = DateTime.now();
+String formattedDate = DateFormat('kk:mm').format(currentTime);
+String result1 = Jiffy(currentTime).format('d MMM yyyy');
+String date = result1.substring(4);
+
 User? user = FirebaseAuth.instance.currentUser;
 CollectionReference blogs = FirebaseFirestore.instance.collection('blogs');
 Future<void> addPost(context, title, content) {
@@ -107,7 +114,7 @@ Future<void> addPost(context, title, content) {
   var authorPic = user!.photoURL!;
   var userId = user!.uid;
   var likes = 0;
-  var createdAt = DateTime.now().toString();
+  var createdAt = FieldValue.serverTimestamp();
 
   return blogs
       .add({
@@ -120,6 +127,7 @@ Future<void> addPost(context, title, content) {
         'createdAt': createdAt,
       })
       .then((value) => {
+            print(createdAt),
             print("Blog Added"),
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => ScreenHome()))
