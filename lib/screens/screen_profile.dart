@@ -4,8 +4,11 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rainbow/screens/screen_login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// ignore: must_be_immutable
 class ScreenProfile extends StatelessWidget {
   User? user = FirebaseAuth.instance.currentUser;
+
+  ScreenProfile({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +23,11 @@ class ScreenProfile extends StatelessWidget {
           radius: 20,
         ),
         ElevatedButton(
-          style: ElevatedButton.styleFrom(primary: Colors.red),
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
           onPressed: () {
             signout(context);
           },
-          child: Text('Log Out'),
+          child: const Text('Log Out'),
         ),
       ],
     )));
@@ -34,8 +37,9 @@ class ScreenProfile extends StatelessWidget {
 signout(context) async {
   await FirebaseAuth.instance.signOut();
   await GoogleSignIn().signOut();
-  final _sharedPreference = await SharedPreferences.getInstance();
-  await _sharedPreference.clear();
+  final sharedPreference = await SharedPreferences.getInstance();
+  await sharedPreference.clear();
   Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => ScreenLogin()), (route) => false);
+      MaterialPageRoute(builder: (context) => const ScreenLogin()),
+      (route) => false);
 }

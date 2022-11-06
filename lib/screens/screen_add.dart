@@ -7,6 +7,7 @@ import 'package:delta_markdown/delta_markdown.dart';
 import 'package:markdown/markdown.dart' hide Text;
 import 'package:rainbow/screens/screen_home.dart';
 import 'package:jiffy/jiffy.dart';
+// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 
 String quillDeltaToHtml(QuillController delta) {
@@ -16,84 +17,85 @@ String quillDeltaToHtml(QuillController delta) {
   return html;
 }
 
+// ignore: must_be_immutable
 class ScreenAdd extends StatelessWidget {
   final _titleController = TextEditingController();
-  QuillController _controller = QuillController.basic();
+  final QuillController _controller = QuillController.basic();
+
+  ScreenAdd({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(20),
-        child: Container(
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _titleController,
-                decoration: InputDecoration(
-                  hintText: 'Title',
-                  border: OutlineInputBorder(),
-                ),
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            TextFormField(
+              controller: _titleController,
+              decoration: const InputDecoration(
+                hintText: 'Title',
+                border: OutlineInputBorder(),
               ),
-              SizedBox(height: 20),
-              Container(
+            ),
+            const SizedBox(height: 20),
+            Container(
+              decoration:
+                  BoxDecoration(border: Border.all(color: Colors.black)),
+              child: QuillToolbar.basic(
+                controller: _controller,
+                showFontFamily: false,
+                showFontSize: false,
+                showListCheck: false,
+                showClearFormat: false,
+                showCodeBlock: false,
+                showBackgroundColorButton: false,
+                showDirection: false,
+                showIndent: false,
+                showAlignmentButtons: false,
+                showLeftAlignment: false,
+                showRightAlignment: false,
+                showUnderLineButton: false,
+                showStrikeThrough: false,
+                showCenterAlignment: false,
+                showColorButton: false,
+                showInlineCode: false,
+                showVideoButton: false,
+              ),
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: Container(
                 decoration:
                     BoxDecoration(border: Border.all(color: Colors.black)),
-                child: QuillToolbar.basic(
-                  controller: _controller,
-                  showFontFamily: false,
-                  showFontSize: false,
-                  showListCheck: false,
-                  showClearFormat: false,
-                  showCodeBlock: false,
-                  showBackgroundColorButton: false,
-                  showDirection: false,
-                  showIndent: false,
-                  showAlignmentButtons: false,
-                  showLeftAlignment: false,
-                  showRightAlignment: false,
-                  showUnderLineButton: false,
-                  showStrikeThrough: false,
-                  showCenterAlignment: false,
-                  showColorButton: false,
-                  showInlineCode: false,
-                  showVideoButton: false,
-                ),
-              ),
-              SizedBox(height: 20),
-              Expanded(
-                child: Container(
-                  decoration:
-                      BoxDecoration(border: Border.all(color: Colors.black)),
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: QuillEditor.basic(
-                      controller: _controller,
-                      readOnly: false,
-                    ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: QuillEditor.basic(
+                    controller: _controller,
+                    readOnly: false,
                   ),
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  var data = quillDeltaToHtml(_controller);
-                  if (_titleController.text.isNotEmpty) {
-                    addPost(context, _titleController.text, data);
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        duration: Duration(seconds: 3),
-                        backgroundColor: Colors.red,
-                        behavior: SnackBarBehavior.floating,
-                        margin: EdgeInsets.all(10),
-                        content: Text('Title must be entered..'),
-                      ),
-                    );
-                  }
-                },
-                child: Text("Add Post"),
-              )
-            ],
-          ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                var data = quillDeltaToHtml(_controller);
+                if (_titleController.text.isNotEmpty) {
+                  addPost(context, _titleController.text, data);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      duration: Duration(seconds: 3),
+                      backgroundColor: Colors.red,
+                      behavior: SnackBarBehavior.floating,
+                      margin: EdgeInsets.all(10),
+                      content: Text('Title must be entered..'),
+                    ),
+                  );
+                }
+              },
+              child: const Text("Add Post"),
+            )
+          ],
         ),
       ),
     );
@@ -127,10 +129,13 @@ Future<void> addPost(context, title, content) {
         'createdAt': createdAt,
       })
       .then((value) => {
+            // ignore: avoid_print
             print(createdAt),
+            // ignore: avoid_print
             print("Blog Added"),
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => ScreenHome()))
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ScreenHome()))
           })
+      // ignore: avoid_print, invalid_return_type_for_catch_error
       .catchError((error) => print("Failed to add blog.. $error"));
 }

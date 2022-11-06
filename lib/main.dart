@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:rainbow/screens/screen_splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-const SAVE_KEY_NAME = "UserLoggedIn";
+const saveKeyName = "UserLoggedIn";
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       debugShowCheckedModeBanner: false,
-      home: ScreenSplash(),
+      home: const ScreenSplash(),
     );
   }
 }

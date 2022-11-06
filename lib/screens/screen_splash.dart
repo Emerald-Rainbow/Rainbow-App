@@ -19,6 +19,7 @@ class _ScreenSplashState extends State<ScreenSplash> {
 
   @override
   void didChangeDependencies() {
+    // ignore: todo
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
   }
@@ -34,24 +35,26 @@ class _ScreenSplashState extends State<ScreenSplash> {
 
   @override
   void dispose() {
+    // ignore: todo
     // TODO: implement dispose
     super.dispose();
   }
 
   gotoLogin() async {
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => ScreenLogin(),
+      builder: (context) => const ScreenLogin(),
     ));
   }
 
   checkUserLoggedin() async {
-    final _sharedPreference = await SharedPreferences.getInstance();
-    final _userLoggedIn = _sharedPreference.getBool(SAVE_KEY_NAME);
-    if (_userLoggedIn == null || _userLoggedIn == false) {
+    final sharedPreference = await SharedPreferences.getInstance();
+    final userLoggedIn = sharedPreference.getBool(saveKeyName);
+    if (userLoggedIn == null || userLoggedIn == false) {
       gotoLogin();
     } else {
+      // ignore: use_build_context_synchronously
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => ScreenHome()));
+          MaterialPageRoute(builder: (context) => const ScreenHome()));
     }
   }
 }

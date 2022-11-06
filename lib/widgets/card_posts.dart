@@ -4,7 +4,10 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:rainbow/screens/screen_post.dart';
 
 class CardsPost extends StatefulWidget {
+  const CardsPost({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _CardsPostState createState() => _CardsPostState();
 }
 
@@ -14,17 +17,18 @@ class _CardsPostState extends State<CardsPost> {
       .collection("blogs")
       .orderBy("createdAt", descending: true)
       .snapshots();
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: _usersStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Text('Something went wrong');
+          return const Text('Something went wrong');
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
+          return const Text("Loading");
         }
         return SingleChildScrollView(
           child: Column(
@@ -49,16 +53,16 @@ class _CardsPostState extends State<CardsPost> {
                         backgroundImage: NetworkImage('${data['authorPic']}'),
                       ),
                       title: Padding(
-                        padding: EdgeInsets.only(top: 7, bottom: 7),
+                        padding: const EdgeInsets.only(top: 7, bottom: 7),
                         child: Text(
                           '${data['title']}',
                           overflow: TextOverflow.fade,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                       ),
                       subtitle: Padding(
-                        padding: EdgeInsets.only(bottom: 7),
+                        padding: const EdgeInsets.only(bottom: 7),
                         child: Text(
                           '${data['author']}',
                           style: TextStyle(
@@ -77,7 +81,7 @@ class _CardsPostState extends State<CardsPost> {
                         child: InkWell(
                           onTap: () => gotoPostPage(context, data['title'],
                               data['author'], data['content']),
-                          child: Container(
+                          child: SizedBox(
                             height: checkheight(data['content']),
                             child: InkWell(
                               onTap: () => gotoPostPage(context, data['title'],
@@ -93,7 +97,7 @@ class _CardsPostState extends State<CardsPost> {
                     InkWell(
                       onTap: () => gotoPostPage(context, data['title'],
                           data['author'], data['content']),
-                      child: Padding(
+                      child: const Padding(
                         padding: EdgeInsets.all(7),
                       ),
                     ),
@@ -102,17 +106,17 @@ class _CardsPostState extends State<CardsPost> {
                       children: [
                         IconButton(
                           onPressed: () {},
-                          icon: Icon(Icons.share),
+                          icon: const Icon(Icons.share),
                         ),
                         IconButton(
                             onPressed: () => setState(
                                 () => pressAttention = !pressAttention),
                             icon: pressAttention
-                                ? Icon(
+                                ? const Icon(
                                     Icons.favorite,
                                     color: Colors.red,
                                   )
-                                : Icon(Icons.favorite_border)),
+                                : const Icon(Icons.favorite_border)),
                       ],
                     ),
                   ],
@@ -129,9 +133,10 @@ class _CardsPostState extends State<CardsPost> {
 void gotoPostPage(context, title, author, content) {
   getdata(title, author, content);
   Navigator.push(
-      context, MaterialPageRoute(builder: (context) => ScreenPost()));
+      context, MaterialPageRoute(builder: (context) => const ScreenPost()));
 }
 
 double? checkheight(String content) {
   if (content.length >= 500) return 180.0;
+  return null;
 }

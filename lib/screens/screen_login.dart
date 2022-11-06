@@ -3,10 +3,10 @@ import 'package:rainbow/main.dart';
 import 'package:rainbow/screens/screen_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:rainbow/screens/screen_register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ScreenLogin extends StatefulWidget {
+  const ScreenLogin({Key? key}) : super(key: key);
   @override
   State<ScreenLogin> createState() => _ScreenLoginState();
 }
@@ -65,12 +65,12 @@ class _ScreenLoginState extends State<ScreenLogin> {
               //   },
               //   child: Text('Login'),
               // ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   signInWithGoogle(context);
                 },
-                child: Text('Login with Google'),
+                child: const Text('Login with Google'),
               ),
               // TextButton(
               //   onPressed: () {
@@ -145,10 +145,10 @@ class _ScreenLoginState extends State<ScreenLogin> {
     );
     await FirebaseAuth.instance.signInWithCredential(credential);
     // Once signed in, return the UserCredential
-    final _sharedPreference = await SharedPreferences.getInstance();
-    await _sharedPreference.setBool(SAVE_KEY_NAME, true);
+    final sharedPreference = await SharedPreferences.getInstance();
+    await sharedPreference.setBool(saveKeyName, true);
 
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ScreenHome()));
+        context, MaterialPageRoute(builder: (context) => const ScreenHome()));
   }
 }

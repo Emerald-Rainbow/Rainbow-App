@@ -1,15 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rainbow/screens/screen_add.dart';
 import 'package:rainbow/screens/screen_consult.dart';
-import 'package:rainbow/screens/screen_login.dart';
 import 'package:rainbow/screens/screen_main.dart';
 import 'package:rainbow/screens/screen_profile.dart';
 import 'package:rainbow/screens/screen_rooms.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ScreenHome extends StatefulWidget {
+  const ScreenHome({Key? key}) : super(key: key);
   @override
   State<ScreenHome> createState() => _ScreenHomeState();
 }
@@ -17,10 +14,10 @@ class ScreenHome extends StatefulWidget {
 class _ScreenHomeState extends State<ScreenHome> {
   int _selectedIndex = 0;
   final _pages = [
-    ScreenMain(),
+    const ScreenMain(),
     ScreenAdd(),
-    ScreenConsultation(),
-    ScreenRooms(),
+    const ScreenConsultation(),
+    const ScreenRooms(),
     ScreenProfile(),
   ];
 
@@ -46,24 +43,25 @@ class _ScreenHomeState extends State<ScreenHome> {
         ),
         body: _pages[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
+          // ignore: prefer_const_literals_to_create_immutables
           items: [
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Home',
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.add),
               label: 'Add Post',
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.health_and_safety),
               label: 'Consultation',
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.hotel),
               label: 'Rooms',
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: 'Profile',
             ),
