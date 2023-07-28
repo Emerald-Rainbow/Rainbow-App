@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:url_launcher/url_launcher.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
 class ScreenPost extends StatelessWidget {
   const ScreenPost({Key? key}) : super(key: key);
@@ -43,15 +43,15 @@ class ScreenPost extends StatelessWidget {
                   ),
                   Html(
                     data: content1,
-                    onLinkTap: (url, _, __, ___) async {
-                      // ignore: deprecated_member_use
-                      if (await canLaunch(url!)) {
-                        // ignore: deprecated_member_use
-                        await launch(
-                          url,
-                        );
-                      }
-                    },
+                    // onLinkTap: (url, _, __, ___) async {
+                    //   // ignore: deprecated_member_use
+                    //   if (await canLaunch(url!)) {
+                    //     // ignore: deprecated_member_use
+                    //     await launch(
+                    //       url,
+                    //     );
+                    //   }
+                    // },
                   ),
                 ],
               ),

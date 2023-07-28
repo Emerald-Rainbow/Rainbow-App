@@ -3,7 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
-import 'package:delta_markdown/delta_markdown.dart';
+// import 'package:delta_markdown/delta_markdown.dart';
+import 'package:quill_markdown/quill_markdown.dart';
 import 'package:markdown/markdown.dart' hide Text;
 import 'package:rainbow/screens/screen_home.dart';
 import 'package:jiffy/jiffy.dart';
@@ -12,8 +13,8 @@ import 'package:intl/intl.dart';
 
 String quillDeltaToHtml(QuillController delta) {
   final convertedValue = jsonEncode(delta.document.toDelta().toJson());
-  final markdown = deltaToMarkdown(convertedValue);
-  final html = markdownToHtml(markdown);
+  final markdown = quillToMarkdown(convertedValue);
+  final html = markdownToHtml(markdown!);
   return html;
 }
 
@@ -59,7 +60,7 @@ class ScreenAdd extends StatelessWidget {
                 showCenterAlignment: false,
                 showColorButton: false,
                 showInlineCode: false,
-                showVideoButton: false,
+                // showVideoButton: false,
               ),
             ),
             const SizedBox(height: 20),
@@ -104,7 +105,8 @@ class ScreenAdd extends StatelessWidget {
 
 DateTime currentTime = DateTime.now();
 String formattedDate = DateFormat('kk:mm').format(currentTime);
-String result1 = Jiffy(currentTime).format('d MMM yyyy');
+// String result1 = Jiffy(currentTime).format('d MMM yyyy');
+String result1=Jiffy.now().yMMMMd;
 String date = result1.substring(4);
 
 User? user = FirebaseAuth.instance.currentUser;
